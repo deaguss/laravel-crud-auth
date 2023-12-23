@@ -16,3 +16,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// Route::get('/about', function () {
+//     return view('about');
+// });
+
+
+Route::prefix('anggota')->group(function () {
+    Route::view('/about', 'about', [
+        'title' => 'This will be the title',
+        'name' => 'arthur'
+    ]);
+});
+
+
+Route::redirect('/contact', '/about', 301);
+
+Route::get('/user/{id}', function ($id) {
+    return view('user', ['id' => $id]);
+})->where('id', '[0-9]+');
