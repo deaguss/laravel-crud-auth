@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>about pages</h1>
-    <h5>{{ $title }}</h5>
-    <h5>{{ $name }}</h5>
-</body>
-</html>
+@extends('layouts.mainlayout')
+
+@section('title', 'About')
+
+@section('content')
+
+<h1>about pages</h1>
+<h5>{{ $name }}</h5>
+@endsection

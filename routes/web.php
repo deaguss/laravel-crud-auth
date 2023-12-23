@@ -18,9 +18,25 @@ Route::get('/', function () {
 });
 
 
+Route::get('/home', function () {
+    return view('home', [
+        'data' => [
+            'anggota1',
+            'anggota2',
+            'anggota3'
+        ]
+    ]);
+});
+
+
+
 // Route::get('/about', function () {
 //     return view('about');
 // });
+
+Route::view('/about', 'about', [
+    'name' => 'arthur'
+]);
 
 
 Route::prefix('anggota')->group(function () {
