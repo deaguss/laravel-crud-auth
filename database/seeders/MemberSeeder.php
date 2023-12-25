@@ -23,16 +23,18 @@ class MemberSeeder extends Seeder
         // Member::truncate();
         // Schema::enableForeignKeyConstraints();
 
-        for ($i = 0; $i < 10; $i++) {
-            DB::table('members')->insert([
-                'username' => Str::random(16),
-                'email' => Str::random(16).'@gmail.com',
-                'no_hp' => Str::random(15),
-                'gender' => rand(0, 1),
-                'alamat' => Str::random(16),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
-        }
+        // for ($i = 0; $i < 10; $i++) {
+        //     DB::table('members')->insert([
+        //         'username' => Str::random(16),
+        //         'email' => Str::random(16).'@gmail.com',
+        //         'no_hp' => Str::random(15),
+        //         'gender' => rand(0, 1),
+        //         'alamat' => Str::random(16),
+        //         'created_at' => Carbon::now(),
+        //         'updated_at' => Carbon::now(),
+        //     ]);
+        // }
+
+        Member::factory()->count(10)->create();
     }
 }
