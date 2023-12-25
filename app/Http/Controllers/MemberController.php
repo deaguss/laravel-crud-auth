@@ -13,7 +13,7 @@ class MemberController extends Controller
     public function index() {
         try {
             // Eloquent ORM --get
-            // $members = Member::all();
+            $members = Member::all();
 
             // Query Builder --get
             // $members = DB::table('members')->get();
@@ -51,12 +51,39 @@ class MemberController extends Controller
 
             // Eloquent ORM --delete
             // Member::find(31)->delete();
+
+
+            //collection
+            // $checkGender = collect($members)->where("gender", "1")->isNotEmpty() ? "ada" : "tidak ada";
+
+            // $checkUsername = collect($members)->contains("username", "brionna19");
+
+            // $array1 = ["mangga", "apel", "jeruk", "lemon", "jambu"];
+            // $array2 = ["apel", "jeruk", "stroberi", "jambu", "anggur"];
+
+            //membandingkan nilai array 1 yg tidak ada dinilai 2
+            // $checkDiff = collect($array1)->diff($array2);
+
+            // mencari nilai sama dalam array 1 dan 2
+            // $filterBuah = collect($array1)->filter(function ($value) use ($array2) {
+            //     return collect($array2)->contains($value);
+            // });
+
+            // $array3 = [
+            //     ["nama" => "andre", "age" => "18"],
+            //     ["nama" => "brionna", "age" => "19"],
+            //     ["nama" => "arthur", "age" => "20"],
+            // ];
+
+            // memotong data dan mengambil data berdasarkan key, "nama" => "andre"
+            // $selectPluk = collect($array3)->pluck("nama");
+            // dd($selectPluk);
         } catch (ModelNotFoundException $e) {
             return redirect()->route('home')->with('error', 'Data member tidak ditemukan.');
         } catch (QueryException $e) {
             return redirect()->route('home')->with('error', 'Terjadi kesalahan dalam mengambil data member.');
         }
 
-        // return view('home', ['members' => $members]);
+        return view('home', ['members' => $members]);
     }
 }
