@@ -12,6 +12,7 @@
             <th scope="col">No Hp</th>
             <th scope="col">Gender</th>
             <th scope="col">Alamat</th>
+            <th scope="col">Status</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,11 @@
             <td>{{ $member->no_hp }}</td>
             <td>{{ $member->gender == '1' ? 'Laki-laki' : 'Perempuan' }}</td>
             <td>{{ $member->alamat }}</td>
+            <td>
+                @foreach ($member->cards as $card )
+                {{ $card->uuid == '1' ? 'aktif' : 'non aktif' }}
+                @endforeach
+            </td>
         </tr>
         @endforeach
     </tbody>

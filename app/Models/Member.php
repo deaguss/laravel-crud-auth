@@ -16,4 +16,9 @@ class Member extends Model
         'gender',
         'alamat' ,
     ];
+
+    public function cards()
+    {
+        return $this->hasMany(Card::class);
+    }
 }
