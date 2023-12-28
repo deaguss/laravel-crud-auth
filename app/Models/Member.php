@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Member extends Model
 {
@@ -20,5 +21,15 @@ class Member extends Model
     public function cards()
     {
         return $this->hasMany(Card::class);
+    }
+
+    /**
+     * The roles that belong to the Member
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function items(): BelongsToMany
+    {
+        return $this->belongsToMany(item::class, 'detail_anggota_items', 'member_id', 'item_id');
     }
 }

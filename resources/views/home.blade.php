@@ -13,6 +13,7 @@
             <th scope="col">Gender</th>
             <th scope="col">Alamat</th>
             <th scope="col">Status</th>
+            <th scope="col">item</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +28,11 @@
             <td>
                 @foreach ($member->cards as $card )
                 {{ $card->uuid == '1' ? 'aktif' : 'non aktif' }}
+                @endforeach
+            </td>
+            <td>
+                @foreach ($member->items as $item)
+                {{ $item->name}}
                 @endforeach
             </td>
         </tr>
