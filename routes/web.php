@@ -28,8 +28,12 @@ Route::get('/item', [ItemController::class,'index']);
 Route::get('/trainer', [TrainerController::class,'index']);
 Route::get('/home/{id}', [MemberController::class,'getId']);
 Route::get('/add-member', [MemberController::class,'create']);
+Route::get('/edit-member/{id}', [MemberController::class,'edit']);
 
 Route::post('/member', [MemberController::class,'store']);
+Route::put('/member/{id}', [MemberController::class,'update']);
+Route::delete('/member/{id}', [MemberController::class,'destroy']);
+
 
 
 // Route::get('/about', function () {

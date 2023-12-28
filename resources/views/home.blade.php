@@ -30,8 +30,14 @@
                 <a href="/home/{{ $member->id }}" class="btn btn-outline-success">Detail</a>
             </td>
             <td>
-                <a href="" role="button" class="btn btn-primary">Edit</a>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <a href="/edit-member/{{ $member->id }}" role="button" class="btn btn-primary">Edit</a>
+
+                <form action="/member/{{ $member->id }}" method="post" class="d-inline">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-danger"
+                        onclick="return confirm('Are you sure?') ? window.location.href='/member/{{ $member->id }}' : false">Delete</button>
+                </form>
             </td>
         </tr>
         @endforeach

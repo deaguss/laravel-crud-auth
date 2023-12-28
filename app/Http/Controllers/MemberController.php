@@ -100,7 +100,6 @@ class MemberController extends Controller
 
     public function create() {
         try {
-
             $getTrainer = Trainer::select('id', 'train_name')->get();
             return view('add-member', ["trainer" => $getTrainer]);
         } catch (QueryException $e) {
@@ -109,7 +108,7 @@ class MemberController extends Controller
     }
 
     public function store(Request $request) {
-       $member = Member::create([
+       Member::create([
            'username' => $request->username,
            'email' => $request->email,
            'no_hp' => $request->no_hp,
@@ -121,5 +120,30 @@ class MemberController extends Controller
        ]);
 
        return redirect('/add-member');
+    }
+
+    public function edit($id = null) {
+        $memberById = Member::with('trainerMember')->findOrFail($id);
+        $trainer = Trainer::where('id', '!=', $memberById->trainer_id)->select('id', 'train_name')->get();
+        return view('edit-member', ["memberById" => $memberById, "trainer" => $trainer]);
+    }
+
+    public function update(Request $request, $id = null) {
+        Member::find($id)->update([
+            'username' => $request->username,
+            'email' => $request->email,
+            'no_hp' => $request->no_hp,
+            'gender' => $request->gender,
+            'trainer_id' => $request->trainer,
+            'alamat' => $request->alamat,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        return redirect('/edit-member/'. $id);
+    }
+
+    public function destroy($id = null) {
+        Member::find($id)->delete();
+        return redirect('/home');
     }
 }
