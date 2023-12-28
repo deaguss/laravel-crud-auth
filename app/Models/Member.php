@@ -16,6 +16,9 @@ class Member extends Model
         'no_hp',
         'gender',
         'alamat' ,
+        'trainer_id',
+        'created_at',
+        'updated_at',
     ];
 
     public function cards()

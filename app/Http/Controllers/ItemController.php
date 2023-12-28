@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ItemController extends Controller
 {
     public function index(){
-        $items = item::with('members')->get();
+        $items = item::all();
 
         return view("item", ["items" => $items]);
     }

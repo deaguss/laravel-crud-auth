@@ -6,14 +6,16 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use App\Models\trainer as Trainer;
 use Illuminate\Support\Facades\DB;
+Use Carbon\Carbon;
 
 class MemberController extends Controller
 {
     public function index() {
         try {
             // Eloquent ORM --get
-            $members = Member::with(['cards','items','trainerMember'])->get();
+            $members = Member::get();
 
             // Query Builder --get
             // $members = DB::table('members')->get();
@@ -85,5 +87,39 @@ class MemberController extends Controller
         }
 
         return view('home', ['members' => $members]);
+    }
+
+    public function getId($id = null) {
+        $memberById = Member::with([
+            'trainerMember',
+            'items',
+            'cards'
+        ])->findOrFail($id);
+        return view('detail-member', ["memberById" => $memberById]);
+    }
+
+    public function create() {
+        try {
+
+            $getTrainer = Trainer::select('id', 'train_name')->get();
+            return view('add-member', ["trainer" => $getTrainer]);
+        } catch (QueryException $e) {
+            return 'Terjadi kesalahan!';
+        }
+    }
+
+    public function store(Request $request) {
+       $member = Member::create([
+           'username' => $request->username,
+           'email' => $request->email,
+           'no_hp' => $request->no_hp,
+           'gender' => $request->gender,
+           'trainer_id' => $request->trainer,
+           'alamat' => $request->alamat,
+           'created_at' => Carbon::now(),
+           'updated_at' => Carbon::now(),
+       ]);
+
+       return redirect('/add-member');
     }
 }

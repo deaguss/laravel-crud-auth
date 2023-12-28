@@ -3,6 +3,11 @@
 @section('title', 'Home')
 
 @section('content')
+
+<div class="p-2">
+    <a href="/add-member" class="btn btn-info text-white">New Member</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -10,11 +15,8 @@
             <th scope="col">Username</th>
             <th scope="col">Email</th>
             <th scope="col">No Hp</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Alamat</th>
-            <th scope="col">Status</th>
-            <th scope="col">item</th>
-            <th scope="col">Trainer</th>
+            <th scope="col">Detail</th>
+            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -24,19 +26,13 @@
             <td>{{ $member->username }}</td>
             <td>{{ $member->email }}</td>
             <td>{{ $member->no_hp }}</td>
-            <td>{{ $member->gender == '1' ? 'Laki-laki' : 'Perempuan' }}</td>
-            <td>{{ $member->alamat }}</td>
             <td>
-                @foreach ($member->cards as $card )
-                {{ $card->uuid == '1' ? 'aktif' : 'non aktif' }}
-                @endforeach
+                <a href="/home/{{ $member->id }}" class="btn btn-outline-success">Detail</a>
             </td>
             <td>
-                @foreach ($member->items as $item)
-                {{ $item->name}}
-                @endforeach
+                <a href="" role="button" class="btn btn-primary">Edit</a>
+                <button type="button" class="btn btn-danger">Delete</button>
             </td>
-            <td>{{ $member->trainerMember->train_name }}</td>
         </tr>
         @endforeach
     </tbody>

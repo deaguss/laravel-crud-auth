@@ -26,6 +26,11 @@ Route::get('/home', [MemberController::class, 'index']);
 Route::get('/card', [CardController::class,'index']);
 Route::get('/item', [ItemController::class,'index']);
 Route::get('/trainer', [TrainerController::class,'index']);
+Route::get('/home/{id}', [MemberController::class,'getId']);
+Route::get('/add-member', [MemberController::class,'create']);
+
+Route::post('/member', [MemberController::class,'store']);
+
 
 // Route::get('/about', function () {
 //     return view('about');
