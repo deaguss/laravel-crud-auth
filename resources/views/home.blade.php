@@ -14,6 +14,7 @@
             <th scope="col">Alamat</th>
             <th scope="col">Status</th>
             <th scope="col">item</th>
+            <th scope="col">Trainer</th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,7 @@
                 {{ $item->name}}
                 @endforeach
             </td>
+            <td>{{ $member->trainerMember->train_name }}</td>
         </tr>
         @endforeach
     </tbody>

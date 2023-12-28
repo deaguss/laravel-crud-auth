@@ -10,6 +10,7 @@
             <th scope="col">member id</th>
             <th scope="col">Status</th>
             <th scope="col">Username</th>
+            <th scope="col">Trainer</th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +20,7 @@
             <td>{{ $card->member_id }}</td>
             <td>{{ $card->active == '1' ? 'aktif' : 'non aktif' }}</td>
             <td>{{ $card->members['username']}}</td>
+            <td>{{ $card->members->trainerMember->train_name }}</td>
         </tr>
         @endforeach
     </tbody>

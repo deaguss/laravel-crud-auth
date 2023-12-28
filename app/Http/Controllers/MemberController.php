@@ -13,7 +13,7 @@ class MemberController extends Controller
     public function index() {
         try {
             // Eloquent ORM --get
-            $members = Member::with(['cards','items'])->get();
+            $members = Member::with(['cards','items','trainerMember'])->get();
 
             // Query Builder --get
             // $members = DB::table('members')->get();

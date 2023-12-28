@@ -3,6 +3,7 @@
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\TrainerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,7 @@ Route::get('/', function () {
 Route::get('/home', [MemberController::class, 'index']);
 Route::get('/card', [CardController::class,'index']);
 Route::get('/item', [ItemController::class,'index']);
+Route::get('/trainer', [TrainerController::class,'index']);
 
 // Route::get('/about', function () {
 //     return view('about');

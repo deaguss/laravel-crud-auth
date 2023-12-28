@@ -32,4 +32,14 @@ class Member extends Model
     {
         return $this->belongsToMany(item::class, 'detail_anggota_items', 'member_id', 'item_id');
     }
+
+    /**
+     * Get the user that owns the Member
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function trainerMember()
+    {
+        return $this->belongsTo(Trainer::class, 'trainer_id', 'id');
+    }
 }

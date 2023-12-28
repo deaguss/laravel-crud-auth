@@ -11,7 +11,7 @@ class CardController extends Controller
 {
     public function index() {
         try {
-            $cards = Card::with('members')->get();
+            $cards = Card::with('members.trainerMember')->get();
         } catch (ModelNotFoundException $e) {
             return redirect()->route('card')->with('error', 'Data card tidak ditemukan.');
         } catch (QueryException $e) {
