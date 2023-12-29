@@ -28,7 +28,9 @@ Route::get('/item', [ItemController::class,'index']);
 Route::get('/trainer', [TrainerController::class,'index']);
 Route::get('/home/{id}', [MemberController::class,'getId']);
 Route::get('/add-member', [MemberController::class,'create']);
+Route::get('/soft-delete-member', [MemberController::class,'softDelete']);
 Route::get('/edit-member/{id}', [MemberController::class,'edit']);
+Route::get('/member/{id}/restore', [MemberController::class,'restore']);
 
 Route::post('/member', [MemberController::class,'store']);
 Route::put('/member/{id}', [MemberController::class,'update']);

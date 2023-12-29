@@ -168,7 +168,17 @@ class MemberController extends Controller
     }
 
     public function destroy($id = null) {
-        Member::find($id)->delete();
+        Member::findOrFail($id)->delete();
+        return redirect('/home');
+    }
+
+    public function softDelete(){
+        $deletedMembers = Member::onlyTrashed()->get();
+        return view('deleted-member', ['deletedMembers' => $deletedMembers]);
+    }
+
+    public function restore($id = null) {
+        Member::withTrashed()->find($id)->restore();
         return redirect('/home');
     }
 }

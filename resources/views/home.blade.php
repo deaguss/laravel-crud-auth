@@ -8,6 +8,10 @@
     <a href="/add-member" class="btn btn-info text-white">New Member</a>
 </div>
 
+<div class="p-2">
+    <a href="/soft-delete-member" class="btn btn-primary text-white">Show soft deleted</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
