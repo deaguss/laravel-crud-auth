@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MemberCreateRequest;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -107,28 +108,31 @@ class MemberController extends Controller
         }
     }
 
-    public function store(Request $request) {
-       $members = Member::create([
-           'username' => $request->username,
-           'email' => $request->email,
-           'no_hp' => $request->no_hp,
-           'gender' => $request->gender,
-           'trainer_id' => $request->trainer,
-           'alamat' => $request->alamat,
-           'created_at' => Carbon::now(),
-           'updated_at' => Carbon::now(),
-       ]);
+    public function store(MemberCreateRequest $request) {
+        try {
+            $members = Member::create([
+                'username' => $request->username,
+                'email' => $request->email,
+                'no_hp' => $request->no_hp,
+                'gender' => $request->gender,
+                'trainer_id' => $request->trainer_id,
+                'alamat' => $request->alamat,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
 
-       if($members) {
-        $status = $members ? 'success' : 'error';
-        $message = $members ? 'Data member berhasil ditambahkan!' : 'Data member gagal ditambahkan!';
+            if($members) {
+             $status = $members ? 'success' : 'error';
+             $message = $members ? 'Data member berhasil ditambahkan!' : 'Data member gagal ditambahkan!';
 
-        Session::flash('status', $status);
-        Session::flash('message', $message);
+             Session::flash('status', $status);
+             Session::flash('message', $message);
 
-        return redirect('/add-member');
-
-       }
+             return redirect('/add-member');
+            }
+        } catch (QueryException $e) {
+            throw $e;
+        }
     }
 
     public function edit($id = null) {
@@ -137,18 +141,30 @@ class MemberController extends Controller
         return view('edit-member', ["memberById" => $memberById, "trainer" => $trainer]);
     }
 
-    public function update(Request $request, $id = null) {
-        Member::find($id)->update([
-            'username' => $request->username,
-            'email' => $request->email,
-            'no_hp' => $request->no_hp,
-            'gender' => $request->gender,
-            'trainer_id' => $request->trainer,
-            'alamat' => $request->alamat,
-            'updated_at' => Carbon::now(),
-        ]);
+    public function update(MemberCreateRequest $request, $id = null) {
+        try {
+            $members = Member::find($id)->update([
+                'username' => $request->username,
+                'email' => $request->email,
+                'no_hp' => $request->no_hp,
+                'gender' => $request->gender,
+                'trainer_id' => $request->trainer_id,
+                'alamat' => $request->alamat,
+                'updated_at' => Carbon::now(),
+            ]);
 
-        return redirect('/edit-member/'. $id);
+            if($members) {
+                $status = $members ? 'success' : 'error';
+                $message = $members ? 'Data member berhasil diupdate!' : 'Data member gagal diupdate!';
+
+                Session::flash('status', $status);
+                Session::flash('message', $message);
+
+                return redirect('/edit-member/'. $id);
+            }
+        } catch (QueryException $e) {
+            throw $e;
+        }
     }
 
     public function destroy($id = null) {
