@@ -4,13 +4,27 @@
 
 @section('content')
 
-<div class="p-2">
-    <a href="/add-member" class="btn btn-info text-white">New Member</a>
+<div class="d-flex">
+    <div class="p-2">
+        <a href="/add-member" class="btn btn-info text-white">New Member</a>
+    </div>
+
+    <div class="p-2">
+        <a href="/soft-delete-member" class="btn btn-primary text-white">Show soft deleted</a>
+    </div>
+
+    <div class="p-2">
+        <form id="searchForm" action="" method="get">
+            <div class="input-group">
+                <input type="text" class="form-control" id="searchInput" placeholder="Search... " name="search" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
-<div class="p-2">
-    <a href="/soft-delete-member" class="btn btn-primary text-white">Show soft deleted</a>
-</div>
 
 <table class="table">
     <thead>
@@ -26,7 +40,7 @@
     <tbody>
         @foreach ($members as $i => $member)
         <tr>
-            <th scope="row">{{ $loop->iteration }}</th>
+            <th scope="row">{{ $member->id }}</th>
             <td>{{ $member->username }}</td>
             <td>{{ $member->email }}</td>
             <td>{{ $member->no_hp }}</td>
@@ -49,6 +63,6 @@
 </table>
 
 <div class="p-2">
-    {{ $members->links() }}
+    {{ $members->withQueryString()->links() }}
 </div>
 @endsection

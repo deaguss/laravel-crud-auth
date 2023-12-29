@@ -13,10 +13,20 @@ use Illuminate\Support\Facades\Session;
 
 class MemberController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         try {
+            // search fitur
+            $search = $request->search;
+
             // Eloquent ORM --get
-            $members = Member::paginate(15);
+            $members = Member::with("items")
+            ->where('username', 'like', '%' . $search . '%')
+            ->orWhere('email',  $search)
+            ->orWhere('no_hp',  'like', '%' . $search . '%')
+            ->orWhereHas("items", function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->paginate(15);
 
             // Query Builder --get
             // $members = DB::table('members')->get();
