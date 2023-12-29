@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use App\Models\trainer as Trainer;
-use Illuminate\Support\Facades\DB;
 Use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class MemberController extends Controller
 {
@@ -108,7 +108,7 @@ class MemberController extends Controller
     }
 
     public function store(Request $request) {
-       Member::create([
+       $members = Member::create([
            'username' => $request->username,
            'email' => $request->email,
            'no_hp' => $request->no_hp,
@@ -119,7 +119,16 @@ class MemberController extends Controller
            'updated_at' => Carbon::now(),
        ]);
 
-       return redirect('/add-member');
+       if($members) {
+        $status = $members ? 'success' : 'error';
+        $message = $members ? 'Data member berhasil ditambahkan!' : 'Data member gagal ditambahkan!';
+
+        Session::flash('status', $status);
+        Session::flash('message', $message);
+
+        return redirect('/add-member');
+
+       }
     }
 
     public function edit($id = null) {

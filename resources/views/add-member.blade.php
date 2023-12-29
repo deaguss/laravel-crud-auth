@@ -5,6 +5,13 @@
 
 @section('content')
 
+@if (Session::has('status'))
+<div class="alert alert-{{ Session::get('status') }}" role="alert">
+    {{ Session::get('message') }}
+</div>
+@endif
+
+
 <div class="container">
     <div class="card border-primary mb-3 p-4" style="max-width: 30rem;">
         <h5 class="text-muted">Create a new members</h5>
