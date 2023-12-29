@@ -35,6 +35,6 @@ class MemberSeeder extends Seeder
         //     ]);
         // }
 
-        Member::factory()->count(10)->create();
+        Member::factory()->count(10000)->create();
     }
 }

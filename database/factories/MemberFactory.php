@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Factory as Faker;
+use Nette\Utils\Random;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Member>
@@ -20,6 +21,7 @@ class MemberFactory extends Factory
         $faker = Faker::create();
         return [
             'username' => $faker->userName,
+            'trainer_id' => rand(1, 10),
             'email' => $faker->email,
             'no_hp' => $faker->phoneNumber,
             'gender' => rand(0, 1),

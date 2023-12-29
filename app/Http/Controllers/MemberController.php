@@ -16,7 +16,7 @@ class MemberController extends Controller
     public function index() {
         try {
             // Eloquent ORM --get
-            $members = Member::get();
+            $members = Member::paginate(15);
 
             // Query Builder --get
             // $members = DB::table('members')->get();
