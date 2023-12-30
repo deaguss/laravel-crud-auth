@@ -120,25 +120,43 @@ class MemberController extends Controller
 
     public function store(MemberCreateRequest $request) {
         try {
-            $members = Member::create([
-                'username' => $request->username,
-                'email' => $request->email,
-                'no_hp' => $request->no_hp,
-                'gender' => $request->gender,
-                'trainer_id' => $request->trainer_id,
-                'alamat' => $request->alamat,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
 
-            if($members) {
-             $status = $members ? 'success' : 'error';
-             $message = $members ? 'Data member berhasil ditambahkan!' : 'Data member gagal ditambahkan!';
+            $sizeFile = $request->file('file')->getSize() < 5000000;
+            $fileType = in_array($request->file('file')->getMimeType() ,["image/png", "image/jpg", "image/jpeg"]);
+            $mergeName = $request->username .'-' . $request->file('file')->getClientOriginalName();
 
-             Session::flash('status', $status);
-             Session::flash('message', $message);
+            if($request->hasFile('file')
+            && $sizeFile
+            && $fileType) {
+                $request->file('file')->storeAs('images/', $mergeName);
+                $urlPath = 'http://localhost:8000/storage/images/' . $mergeName;
 
-             return redirect('/add-member');
+                $members = Member::create([
+                    'username' => $request->username,
+                    'image' => $urlPath,
+                    'email' => $request->email,
+                    'no_hp' => $request->no_hp,
+                    'gender' => $request->gender,
+                    'trainer_id' => $request->trainer_id,
+                    'alamat' => $request->alamat,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
+
+                if($members) {
+                 $status = $members ? 'success' : 'error';
+                 $message = $members ? 'Data member berhasil ditambahkan!' : 'Data member gagal ditambahkan!';
+
+                 Session::flash('status', $status);
+                 Session::flash('message', $message);
+
+                 return redirect('/add-member');
+                }
+            } else {
+                Session::flash('status', 'error');
+                Session::flash('message', 'Terjadi error saat menambahkan Image!');
+
+                return redirect('/add-member');
             }
         } catch (QueryException $e) {
             throw $e;

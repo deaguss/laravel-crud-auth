@@ -6,7 +6,7 @@
 @section('content')
 
 @if (Session::has('status'))
-<div class="alert alert-{{ Session::get('status') }}" role="alert">
+<div class="alert alert-{{ Session::get('status') == 'error' ? 'danger' : Session::get('status') }}" role="alert">
     {{ Session::get('message') }}
 </div>
 @endif
@@ -25,7 +25,7 @@
 <div class="container">
     <div class="card border-primary mb-3 p-4" style="max-width: 30rem;">
         <h5 class="text-muted">Create a new members</h5>
-        <form action="member" method="post">
+        <form action="member" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group my-2 pb-2">
                 <label>Email address</label>
@@ -42,6 +42,10 @@
             <div class="form-group my-2 pb-2">
                 <label>Address</label>
                 <input type="text" class="form-control" name="alamat" placeholder="Enter Address">
+            </div>
+            <div class="form-group my-2 pb-2">
+                <label>Photo</label>
+                <input type="file" class="form-control" name="file" />
             </div>
             <div class="form-group my-2 pb-2">
                 <label>Gender</label>

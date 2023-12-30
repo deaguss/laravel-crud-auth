@@ -40,7 +40,7 @@
     <tbody>
         @foreach ($members as $i => $member)
         <tr>
-            <th scope="row">{{ $member->id }}</th>
+            <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $member->username }}</td>
             <td>{{ $member->email }}</td>
             <td>{{ $member->no_hp }}</td>
