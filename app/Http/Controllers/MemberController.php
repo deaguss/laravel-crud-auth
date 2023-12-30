@@ -120,7 +120,6 @@ class MemberController extends Controller
 
     public function store(MemberCreateRequest $request) {
         try {
-
             $sizeFile = $request->file('file')->getSize() < 5000000;
             $fileType = in_array($request->file('file')->getMimeType() ,["image/png", "image/jpg", "image/jpeg"]);
             $mergeName = $request->username .'-' . $request->file('file')->getClientOriginalName();

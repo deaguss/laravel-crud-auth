@@ -4,6 +4,8 @@
 
 @section('content')
 
-<h1>about pages</h1>
-<h5>{{ $name }}</h5>
+
+
+<h1>Anda adalah {{Auth::user()->role->name}}
+</h1>
 @endsection
