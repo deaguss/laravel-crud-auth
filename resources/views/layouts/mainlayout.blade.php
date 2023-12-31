@@ -22,12 +22,6 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/home">Anggota</a>
-
-                        {{-- @switch($role)
-                        @case($role == 'admin')
-                        <a class="nav-link active" aria-current="page" href="#">Anggota</a>
-                        @break
-                        @endswitch --}}
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about">About</a>

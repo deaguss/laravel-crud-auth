@@ -5,6 +5,7 @@
 @section('content')
 
 <div class="d-flex">
+    @if (Auth::user()->role_id == 1)
     <div class="p-2">
         <a href="/add-member" class="btn btn-info text-white">New Member</a>
     </div>
@@ -12,6 +13,7 @@
     <div class="p-2">
         <a href="/soft-delete-member" class="btn btn-primary text-white">Show soft deleted</a>
     </div>
+    @endif
 
     <div class="p-2">
         <form id="searchForm" action="" method="get">
@@ -34,7 +36,9 @@
             <th scope="col">Email</th>
             <th scope="col">No Hp</th>
             <th scope="col">Detail</th>
+            @if (Auth::user()->role_id == 1)
             <th scope="col">Action</th>
+            @endif
         </tr>
     </thead>
     <tbody>
@@ -47,6 +51,7 @@
             <td>
                 <a href="/home/{{ $member->id }}" class="btn btn-outline-success">Detail</a>
             </td>
+            @if (Auth::user()->role_id == 1)
             <td>
                 <a href="/edit-member/{{ $member->id }}" role="button" class="btn btn-primary">Edit</a>
 
@@ -57,6 +62,7 @@
                         onclick="return confirm('Are you sure?') ? window.location.href='/member/{{ $member->id }}' : false">Delete</button>
                 </form>
             </td>
+            @endif
         </tr>
         @endforeach
     </tbody>
